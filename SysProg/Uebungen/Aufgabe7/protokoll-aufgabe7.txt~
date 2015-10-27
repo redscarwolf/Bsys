@@ -1,0 +1,89 @@
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ ./filesize xxx *
+xxx existiert nicht (errno 2: Datei oder Verzeichnis nicht gefunden)
+Groesse von Datei copy: 8670 Byte
+Groesse von Datei copy2: 8339 Byte
+Groesse von Datei copy3: 8511 Byte
+Groesse von Datei copy.c: 1927 Byte
+Groesse von Datei copy.c~: 1927 Byte
+Groesse von Datei copy.o: 3384 Byte
+Groesse von Datei countMK.c: 1028 Byte
+Groesse von Datei countMK.c~: 1014 Byte
+Groesse von Datei filecopy: 13446 Byte
+Groesse von Datei filecopy.c: 2634 Byte
+Groesse von Datei filecopy.c~: 2634 Byte
+Groesse von Datei filecopy-kopie.c: 2634 Byte
+Groesse von Datei filesize: 11633 Byte
+Groesse von Datei filesize.c: 1376 Byte
+Groesse von Datei filesize.c~: 1376 Byte
+Groesse von Datei list: 8782 Byte
+Groesse von Datei list.c: 2321 Byte
+Groesse von Datei list.c~: 2321 Byte
+Groesse von Datei list.o: 3312 Byte                                       
+Groesse von Datei Makefile: 226 Byte                                     
+Groesse von Datei Makefile~: 226 Byte
+Groesse von Datei Test: 0 Byte
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ ls -l xxx *
+ls: Zugriff auf xxx nicht möglich: Datei oder Verzeichnis nicht gefunden
+-rwxr-xr-x 0 makieser ain  8670 Jun 26 16:55 copy
+-rwxr-xr-x 0 makieser ain  8339 Jun 26 15:07 copy2
+-rwxr-xr-x 0 makieser ain  8511 Jun 26 15:14 copy3
+-rwxr-xr-x 0 makieser ain  1927 Jun 29 12:31 copy.c
+-rwxr-xr-x 0 makieser ain  1927 Jun 29 12:31 copy.c~
+-rwxr-xr-x 0 makieser ain  3384 Jun 26 16:55 copy.o
+-rwxr-xr-x 0 makieser ain  1028 Jun 25 13:05 countMK.c
+-rwxr-xr-x 0 makieser ain  1014 Jun 25 13:05 countMK.c~
+-rwxr-xr-x 0 makieser ain 13446 Jun 29 12:22 filecopy
+-rwxr-xr-x 0 makieser ain  2634 Jun 29 12:31 filecopy.c
+-rwxr-xr-x 0 makieser ain  2634 Jun 29 12:31 filecopy.c~
+-rwxr-xr-x 0 makieser ain  2634 Jun 29 13:02 filecopy-kopie.c
+-rwxr-xr-x 0 makieser ain 11633 Jun 29 12:22 filesize
+-rwxr-xr-x 0 makieser ain  1376 Jun 29 12:31 filesize.c
+-rwxr-xr-x 0 makieser ain  1376 Jun 29 12:31 filesize.c~
+-rwxr-xr-x 0 makieser ain  8782 Jun 26 16:32 list
+-rwxr-xr-x 0 makieser ain  2321 Jun 26 17:38 list.c
+-rwxr-xr-x 0 makieser ain  2321 Jun 26 17:38 list.c~
+-rwxr-xr-x 0 makieser ain  3312 Jun 26 16:32 list.o
+-rwxr-xr-x 0 makieser ain   226 Jul  2 13:33 Makefile
+-rwxr-xr-x 0 makieser ain   226 Jul  2 13:33 Makefile~
+
+Test:
+insgesamt 64
+-rwxr-xr-x 0 makieser ain 10 Jun 26 15:00 ende.txt
+-rwxr-xr-x 0 makieser ain  2 Jun 26 14:58 huhu~
+-rwxr-xr-x 0 makieser ain  9 Jun 29 13:25 huhu.txt
+-rwxr-xr-x 0 makieser ain  9 Jun 29 13:25 huhu.txt~
+drwxr-xr-x 0 makieser ain  0 Jun 26 16:18 Unterverzeichnis
+-rwxr-xr-x 0 makieser ain  9 Jun 29 11:54 ziel2.txt
+-rwxr-xr-x 0 makieser ain  9 Jun 29 13:25 ziel3.txt
+-rwxr-xr-x 0 makieser ain  4 Jun 29 11:53 ziel.txt
+-rwxr-xr-x 0 makieser ain 10 Jun 29 11:53 ziel.txt~
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ export LC_MESSAGES=C
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ ./filesize xxx
+xxx existiert nicht (errno 2: No such file or directory)
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ ls -l xxx
+ls: cannot access xxx: No such file or directory
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ ./filecopy filecopy.c filecopy-kopie2.c
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ diff filecopy.c filecopy-kopie2.c
+
+makieser@g149-lx04:~/z-drive/SysProg/Uebungen/Aufgabe7$ cd
+makieser@g149-lx04:~$ mkdir tmp
+makieser@g149-lx04:~$ cd tmp
+
+#### wenn Sie kein Leserecht auf der Quelldatei haben? ############
+makieser@g149-lx04:~/tmp$ chmod -r Test/huhu.txt
+makieser@g149-lx04:~/tmp$ ./filecopy Test/huhu.txt Test/ziel4.txt
+Quelle Test/huhu.txt kann nicht geoeffnet werden (errno 13: Keine Berechtigung)
+
+#### wenn die Zieldatei bereits existiert? ##########
+makieser@g149-lx04:~/tmp$ ./filecopy Test/ende.txt Test/ziel3.txt
+Ziel Test/ziel3.txt kann nicht erzeugt werden (errno 17: Die Datei existiert bereits)
+
+#### wenn Sie kein Schreibrecht im Zielverzeichnis haben? ######
+makieser@g149-lx04:~/tmp$ chmod -w Test/Unterverzeichnis
+makieser@g149-lx04:~/tmp$ ./filecopy Test/ende.txt Test/Unterverzeichnis/unterVDatei2 
+Ziel Test/Unterverzeichnis/unterVDatei2 kann nicht erzeugt werden (errno 13: Keine Berechtigung)
+
+##### wenn die Quelldatei nicht existiert? #####
+makieser@g149-lx04:~/tmp$ ./filecopy Test/nichtda.txt Test/123.txt
+Quelle Test/nichtda.txt kann nicht geoeffnet werden (errno 2: Datei oder Verzeichnis nicht gefunden)
+makieser@g149-lx04:~/tmp$ 

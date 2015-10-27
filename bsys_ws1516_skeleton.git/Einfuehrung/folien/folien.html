@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="section" class="slide level1">
+<h1></h1>
+<h3 id="einführung-bsys-labor">Einführung BSYS Labor</h3>
+<p></br></br> Lars Eckervogt (MSI) </br></br> 20.10.2015</p>
+</section>
+<section id="section-1" class="slide level1">
+<h1></h1>
+<h3 id="kontakt">Kontakt</h3>
+<ul>
+<li>Email: laeckerv@htwg-konstanz.de</li>
+<li>Sprechstunde
+<ul>
+<li>Donnerstag 14:00 - 15:30</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-2" class="slide level1">
+<h1></h1>
+<h3 id="organisation-labor">Organisation Labor</h3>
+<ul>
+<li>Anmeldung über Link in <a href="https://burns.in.htwg-konstanz.de/labworks-BSYS_WS1516/bsys_ws1516_skeleton/wikis/Anmeldung">Moodle</a></li>
+<li><p>2er Teams</p></li>
+<li>14-tägig (?)
+<ul>
+<li>Gruppe A/B im Wechsel</li>
+<li>Dienstag 15:45-17:15 F035 (Anwesenheitspflicht!)</li>
+<li>Donnerstag 14:00-15:30 F035 (Optional aber nutzt es!)</li>
+</ul></li>
+<li><p>Termine s. <a href="https://moodle.htwg-konstanz.de/moodle/course/view.php?id=2358">Moodle</a></p></li>
+</ul>
+</section>
+<section id="section-3" class="slide level1">
+<h1></h1>
+<h3 id="organisation-labor-1">Organisation Labor</h3>
+<ul>
+<li>Zwei Teile
+<ul>
+<li>Aufgaben</li>
+<li>Testat</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-4" class="slide level1">
+<h1></h1>
+<h3 id="organisation-aufgaben">Organisation Aufgaben</h3>
+<ul>
+<li>5 Aufgaben (L1-L5)
+<ul>
+<li>Bash</li>
+<li>Python</li>
+<li>C</li>
+</ul></li>
+<li>Vorbereitung (Testat)</li>
+<li>Hauptteil (Abgabe)
+<ul>
+<li>Deadline: 14:00 Uhr am darauf folgenden Dienstag</li>
+<li>Bsp:
+<ul>
+<li>L1 Labortermin 07.04</li>
+<li>Abgabe bis <strong>spätestens</strong> 14.04. 14:00</li>
+</ul></li>
+<li>3 Joker-Tage (Einzulösen bis 12:00 am Vortag)</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-5" class="slide level1">
+<h1></h1>
+<h3 id="organisation-testat">Organisation Testat</h3>
+<ul>
+<li>Ablauf: <a href="files/TestatsOverview.pdf">Moodle</a>
+<ul>
+<li>Jeweils zum Labor Termin</li>
+<li>15 Minuten (15:45-16:00)</li>
+<li>Mind. 35% pro Testat</li>
+<li>Mind. 50% Gesamt</li>
+<li>Themen: Vorbereitung zur jeweiligen Aufgabe</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-6" class="slide level1">
+<h1></h1>
+<h3 id="werkzeuge">Werkzeuge</h3>
+<ul>
+<li>Git (VCS)</li>
+<li>Gitlab (Issues!)</li>
+<li>Ipython</li>
+<li>Vim</li>
+<li>X2GO (Remote Zugang nur mit VPN)</li>
+</ul>
+</section>
+<section id="section-7" class="slide level1">
+<h1></h1>
+<h3 id="git">Git</h3>
+<ol type="1">
+<li><p>Repository clonen:</p>
+<pre><code>git clone git@burns.in.htwg-konstanz.de:labworks-BSYS_WS1516/bsys_ws1516_XX.wiki.git</code></pre></li>
+<li><p>Datei foo bearbeiten</p></li>
+<li><p>Änderung für nächsten commit hinzufügen:</p>
+<pre><code>git add foo</code></pre></li>
+<li><p>Committen:</p>
+<pre><code>git commit -m &quot;foo um tolle Funktion erweitert.&quot;</code></pre></li>
+<li><p>Commit pushen:</p>
+<pre><code>git push</code></pre></li>
+</ol>
+<p>Informationen auch im <a href="https://burns.in.htwg-konstanz.de/labworks-BSYS_SS15/bsys_ss15_skeleton/wikis/Git">Skeleton Wiki</a></p>
+</section>
+<section id="section-8" class="slide level1">
+<h1></h1>
+<h3 id="ziel-der-heutigen-stunde">Ziel der heutigen Stunde</h3>
+<ul>
+<li>Anmelden am Laborrechner</li>
+<li>Skeleton Repository auschecken</li>
+<li><code>Einfuehrung/Introduction.ipynb</code> in Ipython Notebook öffnen und durcharbeiten.</li>
+<li><code>Einfuehrung/Platform.ipynb</code> in IPython Notebook öffnen und durcharbeiten.</li>
+<li>Wiki 'Laborumgebung' durcharbeiten</li>
+</ul>
+</section>
+<section id="section-9" class="slide level1">
+<h1></h1>
+<h3 id="aufgabe-bis-zum-labortermin">Aufgabe bis zum Labortermin</h3>
+<ul>
+<li>L1 Vorbereitung für Testat</li>
+<li>L1 Aufgabe verstehen</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        width: 1024,
+        height: 768,
+        center: false,
+        theme: 'night', // available themes are in /css/theme
+        transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+        math: {
+            config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

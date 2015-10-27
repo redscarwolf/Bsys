@@ -1,0 +1,237 @@
+<html>
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+h3 { font-size:medium; }
+</style>
+<title>Systemprogrammierung Aufgabe 6</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>&Uuml;bungsaufgabe 6: &Uuml;bersetzungseinheiten und Make</h2>
+<p>
+<b>Abgabe bis 25.6.2015</b></p>
+
+
+<h3>Verzeichnisbaum</h3>
+<p>
+Legen Sie ein neues Arbeitsverzeichnis
+<span style="text-decoration: underline"><tt>Aufgabe6</tt></span>
+mit Unterverzeichnissen
+<span style="text-decoration: underline"><tt>bin</tt></span> und
+<span style="text-decoration: underline"><tt>lib</tt></span> an.
+Verteilen Sie dann Ihre in Aufgabe&nbsp;5 erstellten &Uuml;bersetzungseinheiten
+wie folgt auf die Verzeichnisse:</p>
+<ul>
+<li>
+die &Uuml;bersetzungseinheit <tt>notenspiegel</tt>
+in das Verzeichnis <tt>bin</tt>
+</li>
+<li>
+die Dateien der &Uuml;bersetzungseinheiten <tt>fachnote</tt> und <tt>liste</tt>
+in das Verzeichnis <tt>lib</tt>
+</li>
+</ul>
+
+<br>
+
+<h3>Makefiles im Verzeichnis lib/</h3>
+<p>
+Erstellen Sie nacheinander die folgenden Makefiles:</p>
+<ul>
+<li>
+<tt>Aufgabe6/lib/build-static.mak</tt>
+<br>soll eine statische Bibliothek <tt>libaufgabe6.a</tt> mit den
+&Uuml;bersetzungseinheiten <tt>fachnote</tt> und <tt>liste</tt> erstellen.
+<p>
+Das Makefile soll folgende Regeln enthalten:
+<br>&gt;&nbsp;eine Musterregel f&uuml;r das &Uuml;bersetzen der C-Quellen
+<br>&gt;&nbsp;Pseudoziele all und clean
+<br>&gt;&nbsp;eine explizite Regel zum Erstellen der Bibliothek
+<br>&gt;&nbsp;Abh&auml;ngigkeitsregeln f&uuml;r die beiden Objektdateien
+</p>
+<p>
+Verwenden Sie bitte entgegen den Stilregeln
+<span style="text-decoration: underline">keine</span>
+Variablen au&szlig;er den automatischen Variablen
+<tt>$&lt;</tt>, <tt>$^</tt> und <tt>$@</tt>.</p>
+<p>
+Testen Sie das Makefile mit folgenden Aufrufen:</p>
+<pre>
+  make -f build-static.mak       # sollte die all-Regel ausf&uuml;hren
+  make -f build-static.mak all   # sollte feststellen, dass nichts zu tun ist
+  make -f build-static.mak clean # sollte von all erstellte Dateien l&ouml;schen
+</pre>
+</li>
+<li>
+<tt>Aufgabe6/lib/build-dynamic.mak</tt>
+<br>soll eine dynamische Bibliothek <tt>libaufgabe6.so</tt> mit den
+&Uuml;bersetzungseinheiten <tt>fachnote</tt> und <tt>liste</tt> erstellen.
+<p>
+Das Makefile soll wie das zuvor erstellte <tt>build-static.mak</tt>
+aufgebaut sein. Testen Sie es mit den gleichen Aufrufen.</p>
+</li>
+<li>
+<tt>Aufgabe6/lib/Makefile</tt>
+<br>soll eine Bibliothek mit den &Uuml;bersetzungseinheiten
+<tt>fachnote</tt> und <tt>liste</tt> erstellen,
+wobei der Bibliothekstyp mittels einer Variablen w&auml;hlbar ist:
+<pre>
+  make             # statische Bibliothek libaufgabe6.a erstellen
+  make LIBTYPE=a   # statische Bibliothek libaufgabe6.a erstellen
+  make LIBTYPE=so  # dynamischeBibliothek libaufgabe6.so erstellen
+</pre>
+<p>
+Das Makefile soll wie die beiden zuvor Erstellten aufgebaut sein,
+soll jetzt aber &uuml;berall Variablen gem&auml;&szlig; den in der Vorlesung
+besprochenen Stilregeln verwenden.<p>
+<ul>
+<li>
+Alle Kommandos werden also &uuml;ber Variablen aufgerufen
+und die verwendeten Variablen werden im Makefile explizit gesetzt,
+selbst wenn sie in make vordefiniert sind
+(<tt>make -R</tt> &nbsp; ohne vordefinierte Variablen soll funktionieren).</li>
+<li>
+Die Namen der &Uuml;bersetzungseinheiten sind in Hilfsvariablen aufgelistet.</li>
+</ul>
+<p>
+Das Makefile soll au&szlig;erdem die Abh&auml;ngigkeitsregeln
+mit dem C-Compiler automatisch erzeugen (depend-Datei).</p>
+<p>
+Testen Sie das Makefile mit den obigen Aufrufen.</p>
+</li>
+</ul>
+
+<br>
+
+<h3>Makefile im Verzeichnis bin/</h3>
+<ul>
+<li>
+<tt>Aufgabe6/bin/Makefile</tt>
+<br>erstellt ein ausf&uuml;hrbares Programm <u><tt>notenspiegel</tt></u>,
+das mit der Bibliothek aus dem Unterverzeichnis <tt>lib</tt>
+gebunden ist.
+<p>
+Es sind die gleichen Stilregeln und Anforderungen wie bei
+<tt>Aufgabe6/lib/Makefile</tt> umzusetzen.</p>
+<p>
+Verwenden Sie im Makefile die gcc-Optionen
+<tt>-I</tt>, <tt>-L</tt> und <tt>-l</tt>,
+damit die Bibliothek und deren Header-Dateien gefunden werden.
+Die Option <tt>-I</tt> geh&ouml;rt zu den Pr&auml;prozessor-Optionen,
+f&uuml;r die die Variable <tt>CPPFLAGS</tt> vorgesehen ist.
+Die Option <tt>-L</tt> geh&ouml;rt zu den Linker-Optionen,
+f&uuml;r die die Variable <tt>LDFLAGS</tt> vorgesehen ist.
+</p>
+
+</li>
+<li>
+<tt>Aufgabe6/Makefile</tt>
+<br> ruft erst das <tt>Makefile</tt> im Unterverzeichnis <tt>lib</tt>
+und dann das <tt>Makefile</tt> im Unterverzeichnis <tt>bin</tt> rekursiv auf.
+In den Vorlesungsunterlagen finden Sie eine ausformulierte
+Vorlage f&uuml;r das rekursive Makefile.</li>
+</ul>
+
+<br>
+
+<h3>Tests und Experimente</h3>
+<ul>
+<li>
+Rufen Sie im Verzeichnis <tt>Aufgabe6</tt> folgende Befehle auf
+und pr&uuml;fen Sie die Ergebnisse:
+<pre>
+  make clean
+  make -R all
+  bin/notenspiegel
+  make -R clean
+  make -R LIBTYPE=so
+  bin/notenspiegel
+  ldd bin/notenspiegel
+  LD_LIBRARY_PATH=lib bin/notenspiegel
+  make -R clean
+  make
+</pre>
+Der Befehl <tt>bin/notenspiegel</tt> liefert einen Fehler. Warum?<br>
+Der Befehl <tt>ldd bin/notenspiegel</tt>
+(<u>l</u>ist <u>d</u>ynamic <u>d</u>ependencies)
+stellt den Fehler etwas &uuml;bersichtlicher dar.
+</li>
+<li>
+Was kann man in Ihren Makefiles alles weglassen,
+wenn man auf die Optionen <tt>-R</tt> verzichtet,
+ohne dass sich irgendetwas an den ausgef&uuml;hrten Kommandos &auml;ndert?
+</li>
+<li>
+Linux verwaltet die gerade laufenden Programme als Prozesse.
+Die Prozesse k&ouml;nnen &uuml;ber eine (fortlaufende) Nummer,
+die PID (= Process Identifier), eindeutig identifiziert werden.
+Machen Sie dazu folgenden Experimente
+(Sie ben&ouml;tigen zwei Konsolenfenster mit Arbeitsverzeichnis Aufgabe6/bin/):
+<pre>
+  Konsole1: ./notenspiegel       # Programm notenspiegel starten
+  Konsole2: ps -a                # die PID von notenspiegel herausfinden
+  Konsole2: kill -9 PID          # notenspiegel gewaltsam beenden
+  Konsole1: ./notenspiegel       # Programm notenspiegel neu starten
+  Konsole2: ps -a                # die PID von notenspiegel herausfinden
+  Konsole2: ddd notenspiegel PID # Debugger mit dem laufenden Programm verbinden
+  # analysieren Sie mit dem ddd den Programmstatus
+  # und setzen Sie das Programm dann schrittweise fort
+
+  Konsole1: ulimit -c unlimited  # core-Dateien erlauben
+  Konsole1: ./notenspiegel       # Programm notenspiegel neu starten
+  Konsole2: ps -a                # die PID von notenspiegel herausfinden
+  Konsole2: kill -6 PID          # notenspiegel beenden und core-Datei erstellen
+  Konsole1: ls -l core           # wie gross ist die core-Datei?
+  Konsole1: ddd notenspiegel core
+  # Finden Sie mit dem ddd heraus, bei welcher Anweisung notenspiegel beendet wurde
+
+  Konsole1: rm core              # core-Dateien brauchen viel Plattenplatz
+</pre>
+</li>
+</ul>
+
+<br>
+
+<h3>Abgabe</h3>
+<p>
+F&uuml;hren Sie Ihre Makefiles vor und
+wiederholen Sie die obigen Experimente.</p>
+
+<br>
+
+<h3>Freiwillige Zusatzaufgaben</h3>
+<p>
+Speichern Sie die Dateien <tt>aufgabe4-in.txt</tt> und <tt>aufgabe4-out.txt</tt>
+aus Aufgabe&nbsp;4 in Ihr Unterverzeichnis <tt>Aufgabe6/bin</tt>
+und erg&auml;nzen Sie dann in <tt>Aufgabe6/bin/Makefile</tt>
+ein Pseudoziel <u><tt>check</tt></u>,
+das den folgenden "Selbsttest" ausf&uuml;hrt:</p>
+<pre>
+  ./notenspiegel &lt; aufgabe4-in.txt | diff -q - aufgabe4-out.txt
+</pre>
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 10.6.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

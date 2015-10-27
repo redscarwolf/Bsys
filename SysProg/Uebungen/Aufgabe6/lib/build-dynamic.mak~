@@ -1,0 +1,33 @@
+#
+# build-dynamic.mak
+#
+# erstellt dynamische Bibliothek libaufgabe6.so mit
+# den Uebersetzungseinheiten fachnote und liste
+#
+# Autor: Marcel Kieser
+# Erstellt am 12.06.2015
+#
+
+# Standardziele: Pseudoziele all und clean
+.PHONY: all clean
+
+# alle Endergebnisse, hier nur die libDatei
+all: libaufgabe6.so
+
+# entfernt alle erstellten Dateien ohne nachzufragen(-f)
+clean:
+    rm -f libaufgabe6.so fachnote.o liste.o
+
+# eine explizite Regel zum Erstellen der Bibliothek
+libaufgabe6.so: fachnote.o liste.o
+    gcc -shared -o libaufgabe6.so fachnote.o liste.o
+
+# Abhaengigkeitsregeln für die beiden Objektdateien
+fachnote.o: fachnote.c fachnote.h
+liste.o: liste.c fachnote.h liste.h
+
+# eine Musterregel für das Uebersetzen der C-Quellen
+# TODO muss ich %.h angeben?!!!!!!!!!!!!!!!
+# TODO .c und .h werden eingelesen, verwendet wird aber nur .c mit $< bei $^ wuerde es beide nehmen
+%.o: %.c
+    gcc -c -I. -g -W -Wall -ansi -pedantic $< -fPIC

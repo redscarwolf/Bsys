@@ -1,0 +1,64 @@
+makieser@g149-lx12:~/z-drive/SysProg/Uebungen/Aufgabe1$ make clean
+rm -f aufgabe1 aufgabe1.o
+makieser@g149-lx12:~/z-drive/SysProg/Uebungen/Aufgabe1$ make
+gcc -g -W -Wall -ansi -pedantic    aufgabe1.c   -o aufgabe1
+
+
+makieser@g149-lx12:~/z-drive/SysProg/Uebungen/Aufgabe1$ ./aufgabe1 | sort
+0x7fffcd72b370, Platz von s: 8, Typ von s: char*, Name von s: ?, Wert von s: Hallo
+0x7fffcd72b37d, Platz von l: 1, Typ von l: unsigned char, Name von l: ?, Wert von l: 255
+0x7fffcd72b37e, Platz von k: 1, Typ von k: signed char, Name von k: ?, Wert von k: 127
+0x7fffcd72b37f, Platz von j: 1, Typ von j: char, Name von j: ?, Wert von j: @
+0x7fffcd72b380, Platz von i: 16, Typ von i: long double, Name von i: ?, Wert von i: 5.345
+0x7fffcd72b390, Platz von h: 8, Typ von h: double, Name von h: ?, Wert von h: -2.7
+0x7fffcd72b39c, Platz von g: 4, Typ von g: float, Name von g: ?, Wert von g: 1
+0x7fffcd72b3a0, Platz von f: 8, Typ von f: unsigned long int, Name von f: ?, Wert von f: 2000
+0x7fffcd72b3aa, Platz von e: 2, Typ von e: unsigned short int, Name von e: ?, Wert von e: 65535
+0x7fffcd72b3ac, Platz von d: 4, Typ von d: unsigned int, Name von d: ?, Wert von d: 4095
+0x7fffcd72b3b0, Platz von c: 8, Typ von c: long int, Name von c: ?, Wert von c: 3
+0x7fffcd72b3ba, Platz von b: 2, Typ von b: short int, Name von b: ?, Wert von b: -2
+0x7fffcd72b3bc, Platz von a: 4, Typ von a: int, Name von a: ?, Wert von a: 1
+LP64-Datenmodell
+
+makieser@g149-lx12:~/z-drive/SysProg/Uebungen/Aufgabe1$ ./aufgabe1 | sort -r
+LP64-Datenmodell
+0x7fff750d693c, Platz von a: 4, Typ von a: int, Name von a: ?, Wert von a: 1
+0x7fff750d693a, Platz von b: 2, Typ von b: short int, Name von b: ?, Wert von b: -2
+0x7fff750d6930, Platz von c: 8, Typ von c: long int, Name von c: ?, Wert von c: 3
+0x7fff750d692c, Platz von d: 4, Typ von d: unsigned int, Name von d: ?, Wert von d: 4095
+0x7fff750d692a, Platz von e: 2, Typ von e: unsigned short int, Name von e: ?, Wert von e: 65535
+0x7fff750d6920, Platz von f: 8, Typ von f: unsigned long int, Name von f: ?, Wert von f: 2000
+0x7fff750d691c, Platz von g: 4, Typ von g: float, Name von g: ?, Wert von g: 1
+0x7fff750d6910, Platz von h: 8, Typ von h: double, Name von h: ?, Wert von h: -2.7
+0x7fff750d6900, Platz von i: 16, Typ von i: long double, Name von i: ?, Wert von i: 5.345
+0x7fff750d68ff, Platz von j: 1, Typ von j: char, Name von j: ?, Wert von j: @
+0x7fff750d68fe, Platz von k: 1, Typ von k: signed char, Name von k: ?, Wert von k: 127
+0x7fff750d68fd, Platz von l: 1, Typ von l: unsigned char, Name von l: ?, Wert von l: 255
+0x7fff750d68f0, Platz von s: 8, Typ von s: char*, Name von s: ?, Wert von s: Hallo
+
+makieser@g149-lx12:~/z-drive/SysProg/Uebungen/Aufgabe1$ ./aufgabe1
+0x7fff5d7143cc, Platz von a: 4, Typ von a: int, Name von a: ?, Wert von a: 1
+0x7fff5d7143ca, Platz von b: 2, Typ von b: short int, Name von b: ?, Wert von b: -2
+0x7fff5d7143c0, Platz von c: 8, Typ von c: long int, Name von c: ?, Wert von c: 3
+0x7fff5d7143bc, Platz von d: 4, Typ von d: unsigned int, Name von d: ?, Wert von d: 4095
+0x7fff5d7143ba, Platz von e: 2, Typ von e: unsigned short int, Name von e: ?, Wert von e: 65535
+0x7fff5d7143b0, Platz von f: 8, Typ von f: unsigned long int, Name von f: ?, Wert von f: 2000
+0x7fff5d7143ac, Platz von g: 4, Typ von g: float, Name von g: ?, Wert von g: 1
+0x7fff5d7143a0, Platz von h: 8, Typ von h: double, Name von h: ?, Wert von h: -2.7
+0x7fff5d714390, Platz von i: 16, Typ von i: long double, Name von i: ?, Wert von i: 5.345
+0x7fff5d71438f, Platz von j: 1, Typ von j: char, Name von j: ?, Wert von j: @
+0x7fff5d71438e, Platz von k: 1, Typ von k: signed char, Name von k: ?, Wert von k: 127
+0x7fff5d71438d, Platz von l: 1, Typ von l: unsigned char, Name von l: ?, Wert von l: 255
+0x7fff5d714380, Platz von s: 8, Typ von s: char*, Name von s: ?, Wert von s: Hallo
+LP64-Datenmodell
+
+
+  1.  In welcher Reihenfolge sind die Variablen im Hauptspeicher abgelegt?
+        füllt von unten auf. Was zuerst geschrieben das kommt zuerst in den Speicher.
+        Aber rechnerabhängig.
+    
+  2.  Liegen die Variablen direkt hintereinander oder gibt es Lücken?
+        Es gibt Lücken. wegen performance. Speicherzugriffe.
+  3.  Wie viel Speicher belegen die Variablen insgesamt, also inklusive eventueller Lücken?
+        (3bc)16  -  (370)16
+        (956-880) +4= 76 + 4

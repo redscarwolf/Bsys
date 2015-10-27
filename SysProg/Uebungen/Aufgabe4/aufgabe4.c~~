@@ -1,0 +1,116 @@
+/*
+ * aufgabe4.c
+ *
+ * Liest Fachnamen mit Beurteilung ein und gibt dann einen Notenspiegel aus.
+ *
+ * Autor: Marcel
+ * Erstellt am: 8.05.2015
+ */
+
+/* TODO: #include-Anweisungen, symbolische Konstante, Typen ... */
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 20 /* Symbolische Variable fuer String fach*/
+
+/*struct Anweisungen*/
+enum ben_uben {benotet, unbenotet};
+struct fach_note
+{
+    enum ben_uben art;
+    char fach[N];/*String fuer Fach-Name mit einer groesse von 20 Zeichen*/
+    struct fach_note* next;
+    struct fach_note* prev;
+    union
+    {
+        int note;/*Bei art = benotet*/
+        char status;/*Bei art = unbenotet */
+    } u;
+};
+typedef struct fach_note fach_note;/*Jetzt kann ich "fach_note" schreiben*/
+
+/*Funktions-Prototypen*/
+int einlesen(fach_note*);/*vll clear|*/
+void ausgeben(const fach_note*); /*get| schreibt eine fach_note auf die konsole*/
+fach_note* einfuegen(const fach_note*, const fach_note*, fach_note**);/*add|TODO** */
+void schleife(const fach_note*, void (*ausg) (const fach_note*));/*TODO: passt das??? Geht es auch ohne "ausg"*/
+fach_note* entfernen(const fach_note*, fach_note**);/*remove|TODO** */
+
+int main(void)
+{
+    fach_note *notenspiegel = NULL;
+    fach_note *p;
+    fach_note *q;
+
+    /*------------------------------------------- Notenspiegel einlesen */
+    fprintf(stderr, "Faecher mit Noten eingeben (Ende mit Strg-D):\n");
+
+    for (;;)
+    {
+        p = (fach_note *) malloc(sizeof (fach_note));
+        if (p == NULL)
+        {
+            fprintf(stderr, "Zu viele Faecher!(Speicher voll)\n");
+            break;
+        }
+
+        if (! einlesen(p))
+        {
+            fprintf(stderr, "Eingabeende!\n");
+            free(p);
+            break;
+        }
+
+        notenspiegel = einfuegen(notenspiegel, p, &q);
+        if (q != NULL)
+        {
+            fprintf(stderr, "Alte Eingabe ueberschrieben!\n");
+            free(q);
+        }
+    }
+
+    /*------------------------------------------- Notenspiegel ausgeben */
+    printf("Notenspiegel:\n");
+
+    schleife(notenspiegel, ausgeben);/*2erParam: ist ADRESSE der Fkt "ausgeben"*/
+
+    /*------------------------------------------- Notenspiegel loeschen */
+    while (notenspiegel != NULL)
+    {
+        notenspiegel = entfernen(notenspiegel, &p);
+        free(p);
+    }
+
+    return 0;
+}
+
+/* Funktionsimplementierungen */
+
+int einlesen(fach_note* fn)
+{
+    /*TODO Muss ich speicher allocieren?*/
+    fn = (fach_note*) malloc(sizeof(fach_note));
+    if (fn == NULL)
+    {
+        fprintf(stderr, "Speicherproblem\n");
+        return 1;
+    }
+    
+    /*Fachname einlesen*/
+    scanf("%s",fn->fach);
+    for (;;)
+    {
+       strchr(fn->fach,'_'); /* char* strchr(const char*, int);*/
+    }
+    /*Beurteilung einlesen*/
+    if(scanf("%d",fn->u->note) > 0)
+    {
+        fn->art = benotet;
+    }
+    else
+    {
+        scanf("%c",fn->u->status);
+        fn->art = unbenotet;
+    }
+}
+

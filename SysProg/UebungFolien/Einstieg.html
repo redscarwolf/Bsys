@@ -1,0 +1,225 @@
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+</style>
+<title>Systemprogrammierung Einstieg</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>Einstieg in die &Uuml;bungen</h2>
+<ol>
+<li>
+Erstellen Sie eine Datei <tt>einstieg.c</tt> mit folgendem Inhalt:
+<pre>
+/*
+ * einstieg.c
+ *
+ * Das erste C-Programm gibt einen Text aus.
+ * 
+ * Autor(en): ...
+ * Erstellt am: ...
+ */
+
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int anzahl;
+    char vorname[8];
+
+    printf("Anzahl bisher geschriebener C-Programme eingeben: ");
+    scanf("%d", &amp;anzahl);
+
+    printf("Vorname eingeben: ");
+    scanf("%s", vorname);
+
+    printf("%ss %d. C-Programm funktioniert!\n", vorname, anzahl + 1);
+
+    return 0;
+}
+</pre>
+</li>
+<li>
+<p>
+Vergleichen Sie das gerade geschriebene C-Programm
+mit Ihrem entsprechenden Java-Programm aus dem ersten Semester.<br>
+Was ist (fast) gleich und was ist anders?<br>
+</p>
+</li>
+<li>
+<p>
+&Uuml;bersetzen und binden Sie Ihr Programm im Terminal mit den Befehlen:<br>
+<b><tt>gcc&nbsp;-g&nbsp;-c&nbsp;einstieg.c</tt></b><br>
+<b><tt>gcc&nbsp;einstieg.o&nbsp;-o&nbsp;einstieg</tt></b>
+</p>
+<p>
+Bessern Sie nach, falls Fehlermeldungen kommen.
+</p>
+</li>
+<li>
+<p>
+Versuchen Sie Ihr Programm zu starten:<br>
+<b><tt>einstieg</tt></b>
+</p>
+<p>
+Der Kommandozeileninterpreter
+(die <a href="http://de.wikipedia.org/wiki/Unix-Shell">Unix-Shell</a>)
+findet Ihr ausf&uuml;hrbares Programm nicht.<br>
+Wenn Sie beim Start eines Programms kein Verzeichnis angeben,
+sucht die Shell das Programm nur in den Verzeichnissen,
+die in der Umgebungsvariablen <tt>PATH</tt> aufgez&auml;hlt sind.
+Die Variable k&ouml;nnen Sie sich mit dem folgendem Kommando ansehen:<br>
+<b><tt>echo $PATH</tt></b>
+</p>
+<p>
+Das aktuelle Arbeitsverzeichnis wird bei Linux mit einem Punkt angegeben
+und kann wie folgt in den Suchpfad aufgenommen werden:<br>
+<b><tt>export PATH=$PATH:.</tt></b><br>
+</p>
+</li>
+<li>
+<p>
+Lassen Sie Ihr Programm unter Umgehung des Suchpfads laufen mit dem Befehl:<br>
+<b><tt>./einstieg</tt></b>
+</p>
+<p>
+Das Programm fordert Sie auf, die Anzahl Ihrer bisher geschriebenen
+C-Programme sowie Ihren Vornamen einzugeben, und gibt anschlie&szlig;end
+einen Text aus.</p>
+<p>
+Experimentieren Sie mit unterschiedlichen Eingaben:
+<br><b>&gt;</b>
+Vornamen verschiedener L&auml;nge, insbesondere sehr lange Vornamen,
+<br>&nbsp;&nbsp;&nbsp; z.B. Friedrich-Wilhelm-August-Heinrich.
+<br><b>&gt;</b>
+bei der Anzahl bisher geschriebener Programme auch mal bewusst Falscheingaben,
+<br>&nbsp;&nbsp;&nbsp; z.B. <tt>hallo</tt> statt einer Zahl,
+eine viel zu gro&szlig;e Zahl oder Eingabeende <tt>Strg-D</tt>.
+<p>
+Funktioniert das Programm immer richtig?<br>
+Was liefert <tt>scanf</tt> als R&uuml;ckgabewert? Recherchieren Sie!<br>
+Wie k&ouml;nnte man das Verhalten bei Falscheingaben verbessern?
+<p>
+<em>Informationen zu Bibliotheksfunktionen wie <tt>scanf</tt>
+k&ouml;nnen Sie recherchieren, indem Sie in der Konsole
+<tt>&nbsp;man&nbsp;3&nbsp;scanf&nbsp;</tt> aufrufen
+(die C-Standardbibliothek ist in Kapitel 3 des Handbuchs beschrieben).
+Alternativ k&ouml;nnen Sei auch die Webseite
+<a href="http://man7.org/linux/man-pages/index.html">
+http://man7.org/linux/man-pages/index.html</a>
+besuchen oder mit Google nach Informationen suchen.</em>
+</p>
+</li>
+<li>
+<p>
+Starten Sie im Terminal den Debugger <tt>ddd</tt> mit dem Befehl:<br>
+<b><tt>ddd&nbsp;einstieg&nbsp;&amp;</tt></b>
+<br>
+<em>Das Zeichen &amp; am Ende des Kommandos bewirkt,
+dass die Konsole nicht auf das Beenden des Debuggers wartet.
+Der Debugger l&auml;uft dann als sogenannter Hintergrund-Prozess und
+die Konsole kann sofort f&uuml;r weitere Kommandos genutzt werden.
+Programme mit graphischer Oberfl&auml;che werden unter Linux
+&uuml;berlicherweise so gestartet, weil sie die Konsole nicht f&uuml;r
+Ein-/Ausgaben brauchen.
+<br>
+Mit <b><tt>Strg-Z</tt></b> k&ouml;nnen Sie ein ohne &amp; gestartetes Programm
+anhalten und dann mit dem Kommando <b><tt>bg</tt></b> (background)
+nachtr&auml;glich zu einem Hintergrundprozess machen.
+Probieren Sie das aus.</em>
+</p>
+<p>
+Setzen Sie im Debugger einen Haltepunkt auf den Programmanfang:<br>
+<em>Mit der Maus vor die erste Zeile zeigen, die mit <tt>printf</tt> beginnt,
+dann die rechte Maustaste dr&uuml;cken und
+"set&nbsp;Breakpoint" ausw&auml;hlen.</em>
+</p>
+<p>
+Schalten Sie die Variablenanzeige ein:<br>
+<em>Im Men&uuml; "Data" den Unterpunkt "Display&nbsp;Local&nbsp;Variables"
+ausw&auml;hlen.</em>
+</p>
+<p>
+F&uuml;hren Sie nun das Programm Zeile f&uuml;r Zeile aus:<br>
+<em>Erst auf "Run" und dann zweimal auf "Next" klicken.<br>
+Klicken Sie f&uuml;r die Eingabe der Anzahl in das Ausgabefenster und
+lassen Sie den Cursor w&auml;hrend der Eingabe dort stehen.<br>
+Klicken Sie wieder zweimal auf "Next" und geben Sie dann im Ausgabefenster
+Ihren Vornamen ein.<br>
+Setzen Sie das Programm nach der Eingabe fort,
+indem Sie auf "Cont" klicken.</em>
+</p>
+<p>
+Starten Sie das Programm mehrfach wie beschrieben und
+experimentieren Sie wie oben mit unterschiedlichen Eingaben,
+insbesondere auch mit zu langen Namen und falschen Eingaben.
+Beobachten Sie dabei die Variablenanzeige.</p>
+</li>
+<li>
+&Auml;ndern Sie die Defintion der Variablen <tt>vorname</tt> wie folgt:
+<pre>
+char *vorname = (char*) malloc(8);
+</pre>
+Der Speicher f&uuml;r den Vornamen wird nun auf dem Heap
+statt auf dem Stack reserviert.<br>
+Vor dem &Uuml;bersetzen m&uuml;ssen Sie noch eine weitere
+<tt>#include</tt>-Anweisung und eine <tt>free</tt>-Anweisung erg&auml;nzen:
+<pre>
+...
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main()
+{
+    ...
+
+    free(vorname);
+    return 0;
+}
+</pre>
+<p>
+&Uuml;bersetzen Sie das ge&auml;nderte Programm und
+experimentieren Sie wieder mit unterschiedlich langen Vornamen.
+</p>
+</li>
+<li>
+F&uuml;hren Sie das ge&auml;nderte Programm mit dem Speicherdebugger
+<tt>valgrind</tt> aus:<br>
+<b><tt>valgrind&nbsp;./einstieg</tt></b>
+<p>
+Experimentieren Sie wie zu Beginn mit unterschiedlichen Eingaben.
+<br>Wie lang darf der Vorname werden, ohne dass eine Fehlermeldung kommt?
+<br>Welche Falscheingaben f&uuml;hren zu Fehlermeldungen?
+</p>
+<p>
+Entfernen Sie die <tt>free</tt>-Anweisung aus dem Progamm,
+und testen Sie, was <tt>valgrind</tt> von dieser &Auml;nderung h&auml;lt.
+</p>
+</li>
+</ol>
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 26.2.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

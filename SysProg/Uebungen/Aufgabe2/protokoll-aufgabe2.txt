@@ -1,0 +1,64 @@
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ make bubblesort
+gcc -g -W -Wall -ansi -pedantic    bubblesort.c   -o bubblesort
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time java Bubblesort 1000 < /dev/null > /dev/null
+
+real    0m0.149s
+user    0m0.164s
+sys     0m0.016s
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time java Bubblesort 10000 < /dev/null > /dev/null
+
+real    0m0.620s
+user    0m0.820s
+sys     0m0.032s
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time java Bubblesort 100000 < /dev/null > /dev/null
+
+real    0m14.822s
+user    0m17.197s
+sys     0m8.361s
+
+
+
+
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time ./bubblesort 1000 < /dev/null > /dev/null
+
+real    0m0.009s
+user    0m0.004s
+sys     0m0.000s
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time ./bubblesort 10000 < /dev/null > /dev/null
+
+real    0m0.423s
+user    0m0.416s
+sys     0m0.004s
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time ./bubblesort 100000 < /dev/null > /dev/null
+
+real    0m41.505s
+user    0m41.487s
+sys     0m0.004s
+
+
+
+
+
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time ./bubblesort 1000 < /dev/null > /dev/null
+
+real    0m0.005s
+user    0m0.000s
+sys     0m0.004s
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time ./bubblesort 10000 < /dev/null > /dev/null
+
+real    0m0.170s
+user    0m0.164s
+sys     0m0.004s
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$ time ./bubblesort 1000 < /dev/null > /dev/null
+
+real    0m0.005s
+user    0m0.000s
+sys     0m0.004s
+makieser@g149-lx08:~/z-drive/SysProg/Uebungen/Aufgabe2$
+
+
+- keine Ausgabe
+- wächst quadratisch
+- kommt auf die Anzahl an
+- optimiert ist schneller
+- ???

@@ -1,0 +1,234 @@
+<html>
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+h3 { font-size:medium; }
+</style>
+<title>Systemprogrammierung Aufgabe 2</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>&Uuml;bungsaufgabe 2: ANSI-C Felder</h2>
+<p>
+<b>Abgabe bis 23.4.2015</b></p>
+
+<h3>Migration von Java nach C: Bubblesort</h3>
+<p>
+In Programmiertechnik&nbsp;1 haben wir ein Java-Programm Bubblesort
+besprochen, das beliebig viele ganze Zahlen in ein Feld einliest und
+aufsteigend sortiert wieder ausgibt.
+Das hier vorgegebene Java-Programm
+<a href="Bubblesort.java">Bubblesort.java</a>
+ist so erweitert, dass es die zu sortierenden Zahlen entweder von der
+Standardeingabe einliest oder mit dem Zufallsgenerator erzeugt.
+Stellen Sie dieses Java-Programm auf ANSI-C um:</p>
+<ul>
+<li>
+Die Quelldatei soll <tt>bubblesort.c</tt> hei&szlig;en.</li>
+<li>
+Der Kopf des Hauptprogramms muss
+<tt>&nbsp;int&nbsp;main(int&nbsp;argc,&nbsp;char&nbsp;*argv[])&nbsp;</tt>
+lauten. Dabei ist <tt>argc</tt> der C-Ersatz f&uuml;r die Instanzvariable
+<tt>args.length</tt> beim Java-Feld.</li>
+<li>
+Die Entsprechung zum Java-Ausdruck
+<tt>&nbsp;Integer.parseInt(args[0])&nbsp;</tt>
+ist der C-Ausdruck <tt>&nbsp;atoi(argv[1])&nbsp;</tt>.</li>
+<li>
+Verwenden Sie die Bibliotheksfunktion <tt>malloc</tt> oder <tt>calloc</tt>
+zum Reservieren des Speichers f&uuml;r das Feld.</li>
+<li>
+Den Zufallsgenerator der C-Standardbibliothek initialisieren Sie mit
+<tt>&nbsp;srand((unsigned&nbsp;int)&nbsp;time(NULL))&nbsp;</tt>
+und die n&auml;chste Zufallszahl erhalten Sie mit dem Funktionsaufruf
+<tt>&nbsp;rand()</tt>.</li>
+</ul>
+<p>
+Denken Sie an die Fehlerbehandlung nach der Speicherreservierung
+und beim Einlesen der ganzen Zahlen
+sowie an die Freigabe des Speichers am Programmende.</p>
+
+
+<h3>Manueller Test</h3>
+<p>
+Speichern Sie das <a href="Makefile">Makefile</a> in Ihr Arbeitsverzeichnis
+und verwenden Sie zum Testen die Befehle:</p>
+<pre>
+    make bubblesort
+    ./bubblesort 10
+    valgrind ./bubblesort 10
+</pre>
+<p>
+Testen Sie Ihre C-Programm mit unterschiedlichen Feldgr&ouml;&szlig;en
+und Eingaben, auch mit extremen und falschen Werten:</p>
+<ul>
+<li>
+Verh&auml;lt sich das C-Programm bei <u>allen</u> Eingaben
+wie das Java-Programm?</li>
+<li>
+Funktioniert die Fehlerbehandlung bei Speicherreservierung und Einlesen?</li>
+<li>
+Meldet <tt>valgrind</tt> Fehler?</li>
+<li>
+L&auml;sst sich Ihr Programm auch mit <tt>g++</tt> ohne Fehlermeldungen
+und Warnungen &uuml;bersetzen?</li>
+</ul>
+<p>
+Bessern Sie gegebenenfalls nach.</p>
+
+
+<h3>Automatisierter Test</h3>
+<p>
+Verwenden Sie die folgenden Linux-Befehle, um zu pr&uuml;fen,
+ob Ihr <tt>bubblesort</tt> &uuml;berhaupt richtig sortiert:</p>
+<pre>
+    ./bubblesort 1000 < /dev/null | tail -1000 > out.txt
+    sort -n out.txt | diff - out.txt
+</pre>
+<p>
+Das Umlenken der Standardein-/augabe mit &lt; und | haben Sie schon
+im ersten Semester kennen gelernt. Die Angabe von <tt>/dev/null</tt>
+als Eingabequelle bewirkt, dass <tt>bubblesort</tt> bei allen Leseversuchen
+ein Eingabeende erh&auml;lt, als h&auml;tten Sie <tt>Strg-D</tt> eingegeben.
+Informationen zu den verwendeten Linux-Befehlen mit ihren Optionen und
+Argumenten erhalten Sie mit</p>
+<pre>
+    man tail
+    man sort
+    man diff
+</pre>
+<p>
+oder &uuml;ber die auf der Literaturseite der Vorlesung genannten
+Internetseiten.</p>
+<ul>
+<li>
+Was liefert die obige Befehlsfolge, wenn Ihr
+<tt>bubblesort</tt> richtig sortiert hat?</li>
+</ul>
+ 
+
+<h3>Debugger</h3>
+<p>
+F&uuml;hren Sie Ihr Programm mit dem Debbugger <tt>ddd</tt> zeilenweise aus
+und beobachten Sie, wie die Zahlen im Feld vertauscht werden.</p>
+<pre>
+    ddd bubblesort
+</pre>
+<p>
+<em>
+Hinweis:<br>
+Das Einschalten der Feldansicht im <tt>ddd </tt>ist etwas trickreich.
+Recherchieren Sie in der <tt>ddd</tt>-Dokumentation oder lassen Sie sich das
+im Labor zeigen.</em></p>
+
+
+<h3>Laufzeitmessung</h3>
+<p>
+Verwenden Sie die folgenden Linux-Befehle, um die Laufzeit Ihres Programms
+zu messen:</p>
+<pre>
+    time java Bubblesort 1000 < /dev/null > /dev/null
+    time ./bubblesort 1000 < /dev/null > /dev/null
+</pre>
+<p>
+Das Schl&uuml;sselwort <tt>time</tt> veranlasst die Unix-Shell,
+die Ausf&uuml;hrungszeit des dahinter folgenden Kommandos zu messen.
+Relevant ist f&uuml;r Sie die Zeile mit der <tt>user</tt>-Zeit.
+Informationen dazu finden Sie auf den Handbuchseiten des
+Kommandozeileninterpreters (siehe &nbsp;<tt>man&nbsp;bash&nbsp;</tt>
+oder entsprechende Internetseiten).</p>
+<ul>
+<li>
+W&auml;chst die Ausf&uuml;hrungszeit tats&auml;chlich quadratisch
+mit der Feldgr&ouml;&szlig;e?</li>
+<li>
+Ist das Java-Programm oder das C-Programm schneller?</li>
+</ul>
+<p>
+F&uuml;hren Sie zur Beantwortung der beiden Fragen eine Messreihe
+mit den Feldgr&ouml;&szlig;en 1000, 10000 und 100000 durch.</p>
+<p>
+&Uuml;bersetzen Sie das C-Programm auch mal mit der Optimierungsoption
+<tt>-O</tt> (Buchstabe Gro&szlig;-O, nicht die Ziffer Null):
+</p>
+<pre>
+    gcc -g -O bubblesort.c -o bubblesort
+</pre>
+<ul>
+<li>Ist das optimierte Programm erkennbar schneller?</li>
+<li>Was hat der Compiler an dem C-Programm optimiert?</li>
+</ul>
+<p>
+Wiederholen Sie zur Beantwortung der Fragen die obige Messreihe
+und f&uuml;hren Sie anschlie&szlig;end das optimierte C-Programm
+nochmal mit eingeschalteter Variablenansicht zeilenweise im Debugger
+<tt>ddd</tt> aus.</p>
+
+
+<h3>Protokoll</h3>
+<p>
+Erstellen Sie ein Protokoll Ihres automatisierten Tests
+und Ihrer Laufzeitmessungen. Nutzen Sie dazu wieder die bei Aufgabe&nbsp;1
+erkl&auml;rte Funktionalit&auml;ten der Konsole.
+Nennen Sie die Protokolldatei <tt>protokoll-aufgabe2.txt</tt> und
+erg&auml;nzen Sie darin Ihre Antworten auf alle f&uuml;nf Fragen.</p>
+
+
+<h3>Abgabe</h3>
+<p>
+F&uuml;hren Sie Ihr Programm und Ihre Protokolldatei vor.</p>
+<p>
+<em>
+Hinweis:<br>
+F&uuml;hren Sie bitte ein ordentlich formatiertes Programme vor.
+Bessern Sie gegebenenfalls mit <tt>astyle</tt> nach:<br>
+<tt>astyle -p --style=ansi bubblesort.c</tt></em></p>
+
+
+<h3>Freiwillige Zusatzaufgabe</h3>
+<p>
+Betrachten Sie die folgenden zwei <tt>for</tt>-Schleifen,
+die beide <tt>n</tt> mal auf ein Feld zugreifen:</p>
+<pre>
+    for (i = 0; i < n; ++i)
+    {
+        int r = rand() % n;
+        a[r] = r;
+    }
+
+    for (i = 0; i < n; ++i)
+    {
+        int r = rand() % n;
+        a[i] = r;
+    }
+</pre>
+<p>
+Haben beide Schleifen die gleiche Laufzeit?</p>
+<p>
+Testen Sie Ihre Hypothese mit zwei kleinen C-Programmen.
+Nutzen Sie wie im Pflichtteil das time-Kommando.</p>
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 27.2.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+h3 { font-size:medium; }
+</style>
+<title>Systemprogrammierung Aufgabe 7</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>
+&Uuml;bungsaufgabe 7: POSIX Systemaufrufe</h2>
+<p>
+<b>Abgabe bis 2.7.2015</b></p>
+
+
+<h3>Programmierung</h3>
+<ul>
+<li>
+<p>
+Erstellen Sie ein C-Programm <u><tt>filesize</tt></u>,
+das als Kommandozeilenargumente beliebig viele Dateinamen erwartet
+und f&uuml;r jede der Dateien die Gr&ouml;&szlig;e in Byte
+auf die Standardausgabe schreibt.</p>
+<p>
+Das Programm soll zur Gr&ouml;&szlig;enbestimmung den POSIX-Systemaufruf
+<tt>stat</tt> verwenden (siehe <tt>man&nbsp;2&nbsp;stat</tt> oder
+die POSIX-Dokumentation im Internet).
+Achten Sie auf eine korrekte Fehlerbehandlung mit Ausgabe der
+zugeh&ouml;rigen Systemmeldung.
+Damit die Systemmeldung in der auf dem Rechner (bzw. der beim Aufruf
+verwendeten Konsole) eingestellten Sprache erscheint,
+m&uuml;ssen Sie am Anfang des Programms folgenden Aufruf einf&uuml;gen
+(siehe auch <tt>man&nbsp;3&nbsp;setlocale</tt>):</p>
+<pre>
+  setlocale(LC_ALL, "");
+</pre>
+<p>
+<em>
+Hinweis:
+Verwenden Sie das Vorlesungsbeispiel <tt>count.c</tt> als Vorlage
+und ersetzen Sie die Lese-/Z&auml;hl-Schleife durch den Systemaufruf.</em></p>
+</li>
+<li>
+<p>
+Erstellen Sie ein C-Programm <u><tt>filecopy</tt></u>,
+das als Kommandozeilenargumente zwei Dateinamen erwartet
+und die erstgenannte Datei in die zweitgenannte kopiert.</p>
+<p>
+Das Programm soll zur Gr&ouml;&szlig;enbestimmung den POSIX-Systemaufruf
+<tt>fstat</tt> verwenden, daraufhin mit <tt>malloc</tt> einen Puffer in
+Dateigr&ouml;&szlig;e allokieren, die Quelldatei mit einem einzigen
+<tt>read</tt>-Systemaufruf in den Puffer kopieren
+und schlie&szlig;lich den Puffer mit einem einzigen <tt>write</tt>-Systemaufruf
+in die Zieldatei schreiben (siehe <tt>man&nbsp;2&nbsp;fstat</tt>,
+<tt>man&nbsp;2&nbsp;read</tt>, <tt>man&nbsp;2&nbsp;write</tt>
+oder die POSIX-Dokumentation im Internet).</p>
+<p>
+Achten Sie auf eine korrekte und vollst&auml;ndige Fehlerbehandlung
+mit f&uuml;r den Benutzer aussagekr&auml;ftigen Fehlermeldungen.
+Stellen Sie f&uuml;r die Systemmeldungen die deutsche Sprache ein,
+um ein sprachliches Durcheinander zwischen Systemmeldungen und eigenen
+Fehlertexten zu vermeiden:</p>
+<pre>
+  setlocale(LC_MESSAGES, "de_DE.UTF-8");
+</pre>
+<p>
+Geben Sie eine Warnung aus, wenn die Plattform die deutschen Systemmeldungen
+nicht unterst&uuml;tzt.</p>
+<p>
+<em>
+Hinweis:
+Verwenden Sie das Vorlesungsbeispiel <tt>copy.c</tt> als Vorlage
+und ersetzen Sie die byteweise Kopierschleife durch die genannten
+Systemaufrufe.</em></p>
+</li>
+<li>
+Erstellen Sie ein m&ouml;glichst einfaches <u><tt>Makefile</tt></u>,
+das die beiden Programme baut und die gewohnten Stilregeln einh&auml;lt.
+Sie d&uuml;rfen die eingebauten Variablen und Musterregeln von make verwenden
+(d.h. <tt>make&nbsp;-R</tt> braucht nicht zu funktionieren).
+</li>
+</ul>
+
+
+<h3>Test</h3>
+<p>
+Vergleichen Sie die Ausgaben Ihres Programms <tt>filesize</tt>
+mit denen des Linux-Kommandos <tt>ls</tt>:</p>
+<pre>
+  ./filesize xxx *
+  ls -l xxx *
+</pre>
+<p>
+Kommt f&uuml;r die nicht existierende Datei <tt>xxx</tt>
+die gleiche Fehlermeldung?<br>
+In welcher Sprache erscheint die Systemmeldung?</p>
+<p>
+Die aktuellen Spracheinstellungen k&ouml;nnen Sie in der Konsole
+mit dem Linux-Kommando <tt>locale</tt> abfragen
+(siehe <tt>man&nbsp;1&nbsp;locale)</tt>).
+Mit der Option <tt>-a</tt> zeigt das Kommando statt der Einstellungen
+die verf&uuml;gbaren Locales an. &Auml;ndern Sie mal die Einstellung
+f&uuml;r die Systemmeldungen wie folgt:</p>
+<pre>
+  export LC_MESSAGES=C
+</pre>
+In welcher Sprache erscheinen jetzt die Fehlermeldungen von
+<tt>filesize</tt> und <tt>ls</tt>?</p>
+<p>
+Testen Sie, ob Ihr Programm <tt>filecopy</tt>
+Dateien wirklich vollst&auml;ndig kopiert:
+<pre>
+  ./filecopy filecopy.c filecopy-kopie.c
+  diff filecopy.c filecopy-kopie.c
+</pre>
+</p>
+<p>
+Wie verh&auml;lt sich <tt>filecopy</tt>,<br>
+wenn die Quelldatei nicht existiert?<br>
+wenn Sie kein Leserecht auf der Quelldatei haben?<br>
+wenn die Zieldatei bereits existiert?<br>
+wenn Sie kein Schreibrecht im Zielverzeichnis haben?</p>
+<p>
+Arbeiten Sie auf der lokalen Festplatte, damit Sie die Rechte Ihrer Dateien
+und Verzeichnisse beliebig manipulieren d&uuml;rfen:</p>
+<pre>
+  cd
+  mkdir tmp
+  cd tmp
+</pre>
+<p>
+F&uuml;r bequemes Arbeiten nehmen Sie das Arbeitsverzeichnis mit Ihrem Programm
+<tt>filecopy</tt> in die <tt>PATH</tt>-Variable auf
+oder Sie kopieren das Programm.</p>
+<p>
+Ihr Leserecht auf einer Datei entfernen bzw. setzen Sie mit dem Kommando</p>
+<pre>
+  chmod -r <em>Datei</em>
+  chmod +r <em>Datei</em>
+</pre>
+<p>
+Ihr Schreibrecht auf einem Verzeichnis entfernen bzw. setzen Sie mit dem
+Kommando</p>
+<pre>
+  chmod -w <em>Verzeichnis</em>
+  chmod +w <em>Verzeichnis</em>
+</pre>
+
+
+<h3>Protokoll</h3>
+<p>
+Erstellen Sie ein Protokoll Ihrer Tests.
+Nutzen Sie dazu wie bei fr&uuml;heren Aufgaben die Funktionalit&auml;ten
+der Konsole. Nennen Sie die Protokolldatei <tt>protokoll-aufgabe7.txt</tt>
+und erg&auml;nzen Sie darin Ihre Antworten auf alle im Testabschnitt 
+gestellten Fragen.</p>
+
+
+<h3>Abgabe</h3>
+<p>
+F&uuml;hren Sie Ihre beiden Programme und das Protokoll vor.</p>
+
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 19.6.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

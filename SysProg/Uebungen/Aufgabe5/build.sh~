@@ -1,0 +1,2 @@
+#!/bin/sh
+gcc -c -I. -g -W -Wall -ansi -pedantic fachnote.c

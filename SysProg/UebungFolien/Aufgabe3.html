@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+h3 { font-size:medium; }
+</style>
+<title>Systemprogrammierung Aufgabe 3</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>&Uuml;bungsaufgabe 3: ANSI-C Strings</h2>
+<p>
+<b>Abgabe bis 7.5.2015</b></p>
+
+<h3>Migration von Java nach C: Stringsort</h3>
+<p>
+Das Java-Programm <a href="Stringsort.java">Stringsort.java</a>
+erzeugt zuf&auml;llige Ziffernstrings und gibt sie alphabetisch
+(nicht numerisch!) sortiert aus.
+Dabei werden mehrfach vorkommende Strings nur einmal ausgegeben.
+Jedes weitere Vorkommen wird mit einem angeh&auml;ngten Stern angezeigt.
+Stellen Sie dieses Java-Programm auf ANSI-C um:</p>
+<ul>
+<li>
+Die Quelldatei soll <tt>stringsort.c</tt> hei&szlig;en.</li>
+<li>
+Bestimmen Sie die Feldgr&ouml;&szlig;e <tt>n</tt> wie in Aufgabe&nbsp;2
+mit der Funktion <tt>atoi</tt> aus dem Kommandozeilenargument
+<tt>argv[1]</tt>.</li>
+<li>
+Analog zum Feld von String-Referenzen der Java-Vorlage brauchen Sie
+im C-Programm eine Feld von String-Zeigern.
+Verwenden Sie die Bibliotheksfunktion <tt>malloc</tt>
+zum Reservieren des Speichers f&uuml;r das Feld.</li>
+<li>
+Verwenden Sie wie in Aufgabe&nbsp;2 die Bibliotheksfunktionen
+<tt>srand</tt> und <tt>rand</tt> zum W&uuml;rfeln.
+Mit der Bibliotheksfunktion <tt>sprintf</tt> k&ouml;nnen Sie
+die gew&uuml;rfelten Zahlen in Strings umwandeln.
+Vor jedem Aufruf von <tt>sprintf</tt> m&uuml;ssen Sie ein eigenes
+Speicherst&uuml;ck f&uuml;r den jeweils zu erstellenden String reservieren.
+Geben Sie als L&auml;nge <tt>m</tt> des Speicherst&uuml;cks die L&auml;nge
+des Strings <tt>argv[1]</tt> plus 1 an. Warum ist das ein sinnvoller Wert?</li>
+<li>
+Verwenden Sie die <tt>strxxx</tt>-Funktionen aus der C-Standardbibliothek
+f&uuml;r Stringvergleiche und das Zusammenbauen des Ausgabestrings.</li>
+<li>
+Schreiben Sie wie in der Java-Vorlage das sortierte Feld als einen einzigen
+String auf die Standardausgabe.</li>
+</ul>
+<p>
+Denken Sie an die Fehlerbehandlung nach den Speicherreservierungen
+sowie an die Freigabe des Speichers am Programmende.</p>
+
+
+<h3>Test</h3>
+<p>
+Speichern Sie das <a href="Makefile">Makefile</a> in Ihr Arbeitsverzeichnis
+und verwenden Sie zum Testen die Befehle:</p>
+<pre>
+    make stringsort
+    ./stringsort 200
+    valgrind ./stringsort 200
+</pre>
+<p>
+Testen Sie Ihre C-Programm mit den Feldgr&ouml;&szlig;en 0, 1, 2, 20 und 200,
+und rufen Sie es auch ohne Angabe einer Feldgr&ouml;&szlig;e auf:</p>
+<ul>
+<li>
+Verh&auml;lt sich das C-Programm bei allen Eingaben wie das Java-Programm?</li>
+<li>
+Meldet <tt>valgrind</tt> Fehler?</li>
+<li>
+L&auml;sst sich Ihr Programm auch mit <tt>g++</tt> ohne Fehlermeldungen
+und Warnungen &uuml;bersetzen?</li>
+</ul>
+<p>
+Bessern Sie gegebenenfalls nach.</p>
+
+
+<h3>Optimierung des Speicherbedarfs</h3>
+<p>
+Ihr nach der obigen Anleitung erstelltes C-Programm braucht
+unn&ouml;tig viel Heapspeicher, weil es viele sehr kleine
+Speicherst&uuml;cke reserviert. Pro Speicherst&uuml;ck muss sich die
+Speicherverwaltung die L&auml;nge merken. Au&szlig;erdem liefert
+die Speicherverwaltung f&uuml;r beliebige Datentypen ausgerichtete
+Adressen, also typischerweise durch 16 teilbare Adressen.
+Das f&uuml;hrt zu einer Aufrundung das tats&auml;chlich belegeten Speichers.
+Bei zum Beispiel angeforderten 4 Byte werden dadurch inklusive der
+L&auml;ngeninformation vermutlich 32 Byte belegt.
+Und nur wegen der verstreuten Speicherung der einzelnen Strings in jeweils
+eigenen Heap-St&uuml;cken wird &uuml;berhaupt das Feld von String-Zeigern
+gebraucht.</p>
+<p>
+Kopieren Sie Ihre Datei <tt>stringsort.c</tt> nach
+<tt>stringsort-optimiert.c</tt> und optimieren Sie das kopierte Programm
+wie folgt:<p>
+<ul>
+<li>
+Legen Sie die gew&uuml;rfelten Strings in festem Abstand <tt>m</tt>
+hintereinander in einen einzigen zusammenh&auml;ngenden Speicherbereich.
+Reservieren Sie diesen Speicherbereich vor der Schleife mit <tt>malloc</tt>.
+Der feste Abstand <tt>m</tt> ist die berechneten maximalen String-L&auml;nge.
+</li>
+<li>
+Lassen Sie das Feld von String-Zeigern weg und sortieren Sie statt dessen
+direkt die Strings im zusammenh&auml;ngenden Speicherbereich.
+Dazu m&uuml;ssen Sie statt Adressen jetzt Strings vertauschen,
+was mit dem Zuweisungsoperator nicht m&ouml;glich ist.
+Ersetzen Sie die Zuweisungen durch Aufrufe der Bibliotheksfunktion
+<tt>memcpy</tt>, um jeweils <tt>m</tt> Byte zu vertauschen.</li>
+</ul>
+<p>
+Testen Sie das optimierte Programm.</p>
+<p>
+<em>
+Hinweis:
+Man kann zus&auml;tzlich die Laufzeit des Programms optimieren,
+indem man die Bubbelsort-Schleife durch einen Aufruf der Bibliotheksfunktion
+<tt>qsort</tt> ersetzt.</em></p>
+
+
+<h3>Protokoll</h3>
+<p>
+Erstellen Sie ein Protokoll der Tests Ihrer beiden Programmvarianten.
+Nutzen Sie dazu wieder die bei Aufgabe&nbsp;1 erkl&auml;rten
+Funktionalit&auml;ten der Konsole.
+Nennen Sie die Protokolldatei <tt>protokoll-aufgabe3.txt</tt> und
+erg&auml;nzen Sie darin Ihre Antworten auf alle Fragen.</p>
+</p>
+
+
+<h3>Abgabe</h3>
+<p>
+F&uuml;hren Sie die beiden Programme und Ihre Protokolldatei vor.</p>
+<p>
+<em>
+Hinweis:<br>
+F&uuml;hren Sie bitte ein ordentlich formatiertes Programme vor.
+Bessern Sie gegebenenfalls mit <tt>astyle</tt> nach:<br>
+<tt>astyle -p --style=ansi stringsort.c</tt></em></p>
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 30.3.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

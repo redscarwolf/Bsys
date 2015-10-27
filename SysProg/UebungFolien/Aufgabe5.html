@@ -1,0 +1,174 @@
+<html>
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+h3 { font-size:medium; }
+</style>
+<title>Systemprogrammierung Aufgabe 5</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>&Uuml;bungsaufgabe 5: &Uuml;bersetzungseinheiten und Bibliotheken</h2>
+<p>
+<b>Abgabe bis 11.6.2015</b></p>
+
+
+<h3>Aufteilung in &Uuml;bersetzungseinheiten</h3>
+<p>
+Legen Sie ein neues Verzeichnis
+<span style="text-decoration: underline"><tt>Aufgabe5</tt></span> an
+und teilen Sie darin Ihr in Aufgabe&nbsp;4 erstelltes Programm
+<tt>aufgabe4.c</tt> wie folgt in drei &Uuml;bersetzungseinheiten auf:</p>
+<ul>
+<li>
+eine &Uuml;bersetzungseinheit
+<span style="text-decoration: underline"><tt>notenspiegel</tt></span>,
+die nur das Hauptprogramm <tt>main</tt> enth&auml;lt
+</li>
+<li>
+eine &Uuml;bersetzungseinheit
+<span style="text-decoration: underline"><tt>fachnote</tt></span>,
+die die Typdefinitionen f&uuml;r Fachnoten sowie
+die beiden Funktionen <tt>einlesen</tt> und <tt>ausgeben</tt> enth&auml;lt
+</li>
+<li>
+eine &Uuml;bersetzungseinheit
+<span style="text-decoration: underline"><tt>liste</tt></span>,
+die die drei Funktionen <tt>schleife</tt>, <tt>einfuegen</tt> und
+<tt>entfernen</tt> enth&auml;lt
+</li>
+</ul>
+<p>
+&Uuml;berlegen Sie genau, in welchen Dateien Sie
+welche <tt>#include</tt>-Anweisungen brauchen.</p>
+<p>
+<em>
+Hinweis:
+Arbeiten Sie mit dem Editor <tt>kate</tt> an Stelle von <tt>kwrite</tt>.
+In <tt>kate</tt> k&ouml;nnen Sie mehrere Dateien parallel zum Editieren
+&ouml;ffnen und behalten so besser die &Uuml;bersicht.</em></p>
+
+
+<h3>Shell-Script</h3>
+<p>
+Schreiben Sie ein Shell-Script
+<span style="text-decoration: underline"><tt>build.sh</tt></span>,
+das f&uuml;r alle &Uuml;bersetzungseinheiten Objketdateien erzeugt
+und aus diesen <tt>.o</tt>-Dateien dann ein ausf&uuml;hrbares Programm
+<tt>notenspiegel</tt> baut.
+Verwenden Sie den <tt>gcc</tt> mit dem empfohlenen Optionen
+zur Qualit&auml;tssicherung.</p>
+<p>
+F&uuml;hren Sie das Shell-Script aus und testen Sie dann Ihr Programm
+<tt>notenspiegel</tt> wie in Aufgabe&nbsp;4 mit dem Testfall
+<tt>aufgabe4-in.txt</tt>.</p>
+
+
+<h3>Statische Bibliothek</h3>
+<p>
+Schreiben Sie ein Shell-Script
+<span style="text-decoration: underline"><tt>build-static.sh</tt></span>,
+das f&uuml;r alle &Uuml;bersetzungseinheiten Objketdateien erzeugt,
+die beiden Objektdateien <tt>fachnote.o</tt> und <tt>liste.o</tt>
+dann in einer statischen Bibliothek <tt>libaufgabe5.a</tt> zusammenfasst
+und schlie&szlig;lich <tt>notenspiegel.o</tt> mit dieser Bibliothek bindet.
+Ergebnis soll wieder ein ausf&uuml;hrbares Programm <tt>notenspiegel</tt>
+sein.
+Achten Sie auch hier beim <tt>gcc</tt> auf die empfohlenen Optionen
+zur Qualit&auml;tssicherung.</p>
+<p>
+F&uuml;hren Sie das Shell-Script aus und testen Sie dann Ihr Programm
+<tt>notenspiegel</tt> wie in Aufgabe&nbsp;4 mit dem Testfall
+<tt>aufgabe4-in.txt</tt>.</p>
+
+
+<h3>Dynamische Bibliothek</h3>
+<p>
+Schreiben Sie ein Shell-Script
+<span style="text-decoration: underline"><tt>build-dynamic.sh</tt></span>,
+das f&uuml;r alle &Uuml;bersetzungseinheiten wie zuvor mit dem <tt>gcc</tt>
+Objketdateien erzeugt,
+die beiden Objektdateien <tt>fachnote.o</tt> und <tt>liste.o</tt>
+dann in einer dynamischen Bibliothek <tt>libaufgabe5.so</tt> zusammenfasst
+und schlie&szlig;lich <tt>notenspiegel.o</tt> mit dieser Bibliothek bindet.
+Ergebnis soll auch hier ein ausf&uuml;hrbares Programm <tt>notenspiegel</tt>
+sein.</p>
+<p>
+F&uuml;hren Sie das Shell-Script aus und testen Sie dann Ihr Programm
+<tt>notenspiegel</tt> wie in Aufgabe&nbsp;4 mit dem Testfall
+<tt>aufgabe4-in.txt</tt>.
+Sie k&ouml;nnen das Programm <tt>notenspiegel</tt> jetzt allerdings
+nicht mehr wie bisher aufrufen, weil standardm&auml;&szlig;ig nur in
+Systemverzeichnissen nach dynamischen Bibliothek gesucht wird.
+Damit Ihre dynamische Bibliothek <tt>libaufgabe5.so</tt> gefunden wird,
+m&uuml;ssen Sie die Umgebungsvariable <tt>LD_LIBRARY_PATH</tt> setzen:</p>
+<pre>
+  LD_LIBRARY_PATH=. notenspiegel < aufgabe4-in.txt > out.txt
+</pre>
+<p>
+Sie k&ouml;nnen die Variable auch einmal in der Konsole
+f&uuml;r alle folgenden Aufrufe setzen:</p>
+<pre>
+  export LD_LIBRARY_PATH=.
+</pre>
+Das Linux-Kommando <tt>ldd</tt> (list dynamic dependencies)
+zeigt alle dynamischen Bibliohteken, von denen ein ausf&uuml;hrbares
+Programm abh&auml;ngig ist:</p>
+<pre>
+  ldd notenspiegel
+</pre>
+
+
+<h3>Abgabe</h3>
+<p>
+F&uuml;hren Sie Ihre drei Shell-Scripte
+und das jeweils erzeugte Programm vor.</p>
+
+<br>
+
+<h3>Freiwillige Zusatzaufgaben</h3>
+<p>
+Teilen Sie Ihre Funktion <tt>ausgeben</tt>
+wie folgte in zwei Funktionen auf:
+eine Funktion <tt>ausgeben_benotet</tt>, die davon ausgeht,
+dass eine benotete Fachnote als Argument &uuml;bergeben wird
+und eine Funktion <tt>ausgeben_unbenotet</tt>, die davon ausgeht,
+dass eine unbenotete Fachnote als Argument &uuml;bergeben wird.
+Markieren Sie beide Funktionen mit <tt>static</tt> als privat.</p>
+<p>
+Erg&auml;nzen Sie in Ihrer Fachnote-Struktur einen <u>Funktionszeiger</u>
+mit dem Namen <tt>ausgeben</tt>, der den Typ Ihrer beiden Funktionen hat.
+Initialisieren Sie diesen Zeiger innerhalb der Funktion <tt>einlesen</tt>
+mit der jeweils richtigen der beiden Funktionen.</p>
+<p>
+Implementieren Sie die urspr&uuml;ngliche Funktion
+<tt>ausgeben(const fach_note *p)</tt>,
+indem Sie die in der Struktur gespeicherte Funktion aufrufen:</p>
+<pre>
+  p-&gt;ausgeben(p);
+</pre>
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 4.5.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

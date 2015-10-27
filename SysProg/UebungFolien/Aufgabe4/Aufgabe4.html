@@ -1,0 +1,246 @@
+<html>
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+h3 { font-size:medium; }
+</style>
+<title>Systemprogrammierung Aufgabe 4</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>
+&Uuml;bungsaufgabe 4:
+ANSI-C Aufz&auml;hlungen, Strukturen, Varianten, Funktionen
+</h2>
+<p>
+<b>Abgabe bis 21.5.2015</b></p>
+
+
+<h3>Vorbereitung</h3>
+<p>
+Speichern Sie die Dateien <a href="Makefile">Makefile</a>,
+<a href="aufgabe4.c">aufgabe4.c</a>,
+<a href="aufgabe4-in.txt">aufgabe4-in.txt</a> und
+<a href="aufgabe4-out.txt">aufgabe4-out.txt</a>
+in Ihr Arbeitsverzeichnis.
+</p>
+
+<h3>Programmierung</h3>
+<p>
+Das vorgegebene Programm <tt>aufgabe4.c</tt> erstellt einen Notenspiegel.
+Vervollst&auml;ndigen Sie das Programm wie folgt:</p>
+<ul>
+<li>
+<p>
+Der Notenspiegel soll als doppelt verkettete Liste aufgebaut werden.
+Realisieren Sie die Listenelemente als <tt>struct</tt>
+mit eingebetteter <tt>union</tt> und zugeordneter <tt>enum</tt>
+(siehe Vorlesungsunterlagen).
+Die Struktur soll je einen Zeiger auf den Nachfolger und
+den Vorg&auml;nger in der Liste enthalten sowie ein Feld von Zeichen
+f&uuml;r den Fachnamen.
+Definieren Sie die Feldgr&ouml;&szlig;e als symbolische Konstante.
+Sie d&uuml;rfen davon ausgehen, dass Fachnamen aus maximal 20 Zeichen
+bestehen.</p>
+<p>
+Mit der <tt>enum</tt> unterscheiden Sie zwischen den Pr&uuml;fungsarten
+benotet und unbenotet.
+In der <tt>union</tt> speichern Sie bei benoteten Pr&uuml;fungen
+eine ganzzahlige Note, bei unbenoteten Pr&uuml;fungen eine Beurteilung
+in Form eines Einzelzeichens.</p>
+<p>
+Deklarieren Sie einen Aliasnamen <b><tt>fach_note</tt></b>
+f&uuml;r Ihren <tt>struct</tt>-Typ.</p>
+</li>
+<li>
+<p>
+F&uuml;gen Sie oberhalb von <tt>main</tt> Prototypen f&uuml;r die
+Funktionen <tt>einlesen</tt>, <tt>ausgeben</tt>, <tt>einfuegen</tt>,
+<tt>schleife</tt> und <tt>entfernen</tt> ein.</p>
+<p>
+Die Funktion <tt>ausgeben</tt> soll keinen Wert zur&uuml;ckliefern und
+als Eingabeparameter einen Zeiger auf ein <u>konstantes</u>
+<tt>fach_note</tt>-Element haben.
+<br>Leiten Sie die &uuml;brigen R&uuml;ckgabe- und Parametertypen
+von den Aufruf-Ausdr&uuml;cken in <tt>main</tt> ab.</p>
+</li>
+<li>
+<p>
+Erg&auml;nzen Sie am Dateiende die Implementierung
+der Funktion <b><tt>einlesen</tt></b>.
+Die Funktion soll von der Standardeingabe ein Fach mit Beurteilung
+einlesen und in die per Parameter &uuml;bergebene Struktur speichern.
+Das Eingabeformat k&ouml;nnen Sie der Datei <tt>aufgabe4-in.txt</tt>
+f&uuml;r den automatisierten Test entnehmen.
+Beim Einlesen mit <tt>scanf</tt> k&ouml;nnen Sie zwischen benoteten und
+unbenoteten F&auml;chern unterscheiden, indem Sie erst mit <tt>%d</tt>
+eine ganze Zahl zu lesen versuchen, und wenn dies nicht gelingt,
+mit <tt>%c</tt> ein Einzelzeichen lesen.
+Die Funktion <tt>scanf</tt> liefert als R&uuml;ckgabewert,
+wie viele Werte erfolgreich gelesen werden konnten
+<em>(siehe auch <tt>&nbsp;man&nbsp;3&nbsp;scanf</tt>)</em>.</p>
+<p>
+Im Fachnamen sollen nach dem Einlesen alle Unterstriche _ durch
+Leerzeichen ersetzt werden. Die Unterstriche sollen dazu in einer Schleife
+mit der Bibliotheksfunktion <tt>strchr</tt> gesucht werden
+<em>(siehe auch <tt>&nbsp;man&nbsp;3&nbsp;strchr</tt>)</em>.</p>
+<p>
+Der R&uuml;ckgabewert von <b><tt>einlesen</tt></b> soll 0 sein,
+wenn das Lesen nicht gelungen ist, sonst ungleich 0.</p>
+</li>
+<li>
+<p>
+Erg&auml;nzen Sie am Dateiende die Implementierung
+der Funktion <b><tt>ausgeben</tt></b>.
+Die Funktion soll das per Parameter &uuml;bergebene Fach mit Beurteilung im
+folgenden Format auf der Standardausgabe ausgeben:
+in der ersten Spalte steht linksb&uuml;ndig mit Feldbreite 20 der Fachname,
+dann folgt nach einem Tabulatorzeichen die Beurteilung
+(siehe auch die Datei <tt>aufgabe4-out.txt</tt>
+f&uuml;r den automatisierten Test).</p>
+<p>
+Verwenden Sie f&uuml;r die linksb&uuml;ndige Ausgabe
+mit fester Spaltenbreite des Fachnamens das Format <tt>"%-*s"</tt>.
+Argumente f&uuml;r dieses Format sind die Spaltenbreite als ganze Zahl,
+gefolgt vom String
+<em>(siehe auch <tt>&nbsp;man&nbsp;3&nbsp;printf</tt>).</em></p>
+<p>
+Bei benoteten F&auml;chern wird eine Beurteilung zwischen 10 und 40
+sowie die 50 als 1,0 bis 4,0 und 5,0 ausgegeben.
+Sonstige ganze Zahlen werden mit dem Zusatz "Fehler: " so ausgegeben,
+wie sie eingegeben wurden.</p>
+<p>
+Bei unbenoteten F&auml;chern wird die Beurteilung 'B' als "bestanden"
+und die Beurteilung 'N' als "nicht bestanden" ausgegeben.
+Sonstige Beurteilungen werden mit dem Zusatz "Fehler: " als Einzelzeichen
+ausgegeben.</p>
+</li>
+<li>
+<p>
+Erg&auml;nzen Sie am Dateiende die Implementierung
+der Funktion <b><tt>einfuegen</tt></b>.
+Die Funktion soll ein neues Element am Kopf einer Liste einf&uuml;gen.
+Wenn in der restlichen Liste bereits ein Listenelement mit gleichem Fachnamen
+und gleicher Pr&uuml;fungsart enthalten ist, soll dieses alte Element
+aus der Liste entfernt werden.</p>
+<p>
+Der Zeiger auf den Kopf der Liste wird im ersten Parameter &uuml;bergeben,
+der Zeiger auf das einzuf&uuml;gende Element im zweiten Parameter.
+Der dritte Parameter ist Ausgabeparamter f&uuml;r das entfernte Element.
+Er ist auf NULL zu setzen, wenn kein altes Element entfernt wurde.</p>
+<p>
+<em>
+Hinweise:<br>
+Gehen Sie schrittweise vor: f&uuml;gen Sie erst das neue Element 
+am Listenanfang ein, pr&uuml;fen Sie dann mit einer Schleife, 
+ob es in der restlichen Liste einen Doppelg&auml;nger gibt, 
+und entfernen Sie nach der Schleife den Doppelg&auml;nger aus der Liste, 
+sofern einer gefunden wurde.<br>
+Fertigen Sie Zeichnungen an, um sich das Vorgehen beim Einf&uuml;gen und
+Entfernen von Listenelementen klar zu machen.
+Im Dokument <a href="HilfestellungAufgabe4.pdf">HilfestellungAufgabe4.pdf</a>
+finden Sie Schnappsch&uuml;sse von der Listendarstellung des Debuggers
+<tt>ddd</tt>.</em></p>
+</li>
+<li>
+<p>
+Erg&auml;nzen Sie am Dateiende die Implementierung
+der Funktion <b><tt>schleife</tt></b>.
+Die Funktion soll f&uuml;r alle Listenelemente je einmal
+die per Eingabeparameter &uuml;bergebene Funktion aufrufen.</p>
+</li>
+<li>
+<p>
+Erg&auml;nzen Sie am Dateiende die Implementierung
+der Funktion <b><tt>entfernen</tt></b>.
+Die Funktion soll das erste Element aus einer Liste entfernen.
+Der Zeiger auf den Kopf der Liste wird im ersten Parameter &uuml;bergeben.
+Im zweiten Parameter wird der Zeiger auf das entfernte Element
+zur&uuml;ckgeliefert.
+R&uuml;ckgabewert ist der Zeiger auf den neuen Listenkopf.</p>
+<p>
+Achten Sie darauf, dass die verk&uuml;rzte Liste keinen Zeiger
+mehr auf das entfernte Element enth&auml;lt und auch das entfernte Element
+nicht mehr auf die Liste verweist.</p>
+</li>
+</ul>
+
+
+<h3>Test</h3>
+<p>
+Verwenden Sie zum Testen die gewohnten Befehle:</p>
+<pre>
+  make aufgabe4
+  ./aufgabe4
+  valgrind ./aufgabe4
+  ddd aufgabe4
+</pre>
+<p>
+F&uuml;hren Sie auch die folgenden automatisierten Tests aus:</p>
+<pre>
+  valgrind ./aufgabe4 &lt; aufgabe4-in.txt
+  ./aufgabe4 &lt; aufgabe4-in.txt &gt; out.txt
+  diff -w out.txt aufgabe4-out.txt
+</pre>
+<p>
+<tt>valgrind</tt> darf keine Fehler und
+<tt>diff</tt> keine Unterschiede melden.
+<br>
+Ihr Programm muss sich auch mit <tt>g++</tt> ohne Fehlermeldungen
+und Warnungen &uuml;bersetzen lassen.
+<br>
+Bessern Sie gegebenenfalls nach.</p>
+
+
+<h3>Abgabe</h3>
+<p>
+F&uuml;hren Sie Ihr Programm mit den automatisierten Tests vor und
+zeigen Sie im Debugger <tt>ddd</tt> die verkettete Liste.</p>
+<p>
+<em>
+Hinweis:<br>
+F&uuml;hren Sie bitte ein ordentlich formatiertes Programme vor.
+Bessern Sie gegebenenfalls mit <tt>astyle</tt> nach.</em></p>
+
+<br>
+
+<h3>Freiwillige Zusatzaufgaben</h3>
+<ul>
+<li>
+Produziert Ihr Programm Speicherzugriffsfehler, wenn Fachnamen mit mehr als
+20 Zeichen eingegeben werden?
+Pr&uuml;fen Sie das nach und &uuml;berlegen Sie,
+wie sich das verhindern lie&szlig;e.
+Lesen Sie dazu in der Spezifikation von <tt>scanf</tt> nach,
+wie sich die Anzahl der maximal einzulesenden Zeichen bei <tt>%s</tt>
+einstellen l&auml;sst und &auml;ndern Sie Ihr Programm entsprechend.
+Wie ist dann das Verhalten bei zu langen Namen?</li>
+<li>
+&Auml;ndern Sie die Funktion <tt>einfuegen</tt> so,
+dass sie neue Elemente immer am Listenende anh&auml;ngt.</li>
+</ul>
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 15.4.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

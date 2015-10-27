@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<style type="text/css">
+h1 { font-size:x-large; }
+h2 { font-size:large; }
+h3 { font-size:medium; }
+</style>
+<title>Systemprogrammierung Aufgabe 1</title>
+</head>
+<body>
+
+<h1>Systemprogrammierung - AIN/2<br>
+<span style="font-size:smaller">Sommersemester 2015</span></h1>
+<hr>
+
+<h2>&Uuml;bungsaufgabe 1: ANSI-C Grundtypen</h2>
+<p>
+<b>Abgabe bis 9.4.2015</b></p>
+
+<h3>Programmierung</h3>
+<p>
+Auf den Seiten 2-15 bis 2-18 der Vorlesungsunterlagen sind 12 Grundtypen
+aufgez&auml;hlt.</p>
+<p>
+Schreiben Sie ein C-Programm <tt>aufgabe1.c</tt>, das zu jedem Grundtyp
+je eine lokale Variable mit Initialisierung enth&auml;lt.
+<br>
+Zus&auml;tzlich soll das Programm eine Zeigerdefinition
+<tt>&nbsp;char* s = "Hallo";&nbsp;</tt>
+enthalten. Sie m&uuml;ssen also insgesamt 13 Variablen definieren.</p>
+<p>
+Das Programm soll die <u>Adresse</u>, den <u>Platzbedarf</u>, den <u>Typ</u>,
+den <u>Namen</u> und den <u>Wert</u> dieser 14 Variablen ausgeben.<br>
+Pro Variable soll genau eine Zeile mit den genannten f&uuml;nf Spalten
+ausgegeben werden, immer mit der Variablenadresse beginnend.</p>
+<p>
+Abschlie&szlig;end soll das Programm ausgeben, ob es mit dem C-Datenmodell
+<tt>"ILP32"</tt> oder <tt>"LP64"</tt> arbeitet, oder ob keines der beiden
+Modelle vorliegt:</p>
+<ul>
+<li>
+man spricht von einem <b><tt>ILP32</tt></b>-Datenmodell,
+wenn die Typen <tt>int</tt> (<b><tt>I</tt></b>),
+<tt>long int</tt> (<b><tt>L</tt></b>) und
+<tt>char*</tt> (<b><tt>P</tt></b>) je 32 Bit belegen</li>
+<li>
+ein <b><tt>LP64</tt></b>-Datenmodell liegt vor,
+wenn <tt>int</tt> 32 Bit belegt und
+sowohl <tt>long int</tt> (<b><tt>L</tt></b>)
+als auch <tt>char*</tt> (<b><tt>P</tt></b>) je 64 Bit belegen</li>
+</ul>
+<p>
+<em>
+Hinweis:<br>
+<tt>&lt;stddef.h&gt;</tt> einf&uuml;gen.<br>
+Achten Sie bei den Werten auf die richtigen von ANSI-C unterst&uuml;tzen
+<tt>printf</tt>-Formatangabe.
+Informationen zu den <tt>printf</tt>-Formaten erhalten Sie mit
+<tt>&nbsp;man&nbsp;3&nbsp;printf&nbsp;</tt>
+oder &uuml;ber einschl&auml;gige Internetseiten und B&uuml;chern
+(siehe die Literaturseite der Vorlesung).
+</em></p>
+
+
+<h3>Test</h3>
+<p>
+Kopieren Sie die Datei <a href="Makefile">Makefile</a>
+in Ihr Arbeitverzeichnis.
+<br>
+&Uuml;bersetzen und binden Sie dann Ihr Programm mit dem Befehl</p>
+<pre>  make aufgabe1</pre>
+<p>
+F&uuml;hren Sie Ihr Programm aus und lassen Sie die Ausgaben auch mal vom
+<tt>sort</tt>-Kommando aufsteigend oder absteigend sortieren:</p>
+<pre>
+  ./aufgabe1
+  ./aufgabe1 | sort
+  ./aufgabe1 | sort -r
+</pre>
+<p>
+Betrachten Sie die Ausgaben und beantworten Sie folgende Fragen:</p>
+<ul>
+<li>
+In welcher Reihenfolge sind die Variablen im Hauptspeicher abgelegt?</li>
+<li>
+Liegen die Variablen direkt hintereinander oder gibt es L&uuml;cken?</li>
+<li>
+Wie viel Speicher belegen die Variablen insgesamt,
+also inklusive eventueller L&uuml;cken?</li>
+</ul>
+<p>
+Pr&uuml;fen Sie, ob sich Ihr Programm auch mit dem etwas strengeren C++-Compiler
+ohne Fehlermeldungen und Warnungen &uuml;bersetzen l&auml;sst:</p>
+<pre>  make CC=g++ clean aufgabe1</pre>
+<p>
+<em>
+Hinweis:<br>
+Wenn es beim &Uuml;bersetzen oder Binden mit <tt>gcc</tt> bzw. <tt>g++</tt>
+Fehlermeldungen oder Warnungen gibt, m&uuml;ssen Sie Ihr Programm nachbessern.
+</em></p>
+
+
+<h3>Protokoll</h3>
+<p>
+Erstellen Sie ein Protokoll Ihres Test-Schritts.
+&Ouml;ffnen Sie dazu eine neue Konsole oder
+setzen Sie Ihre aktuelle Konsole mit <tt>Strg+Umschalt+X</tt> zur&uuml;ck
+(alternativ per Konsolenmen&uuml;
+<tt>Ansicht&nbsp;-&gt;&nbsp;Verlaufspeicher&nbsp;leeren&nbsp;und&nbsp;zuruecksetzen</tt>).</p>
+<p>
+Rufen Sie in der neuen bzw. zur&uuml;ckgesetzten Konsole
+<tt>make clean</tt> auf und wiederholen Sie alle Kommandos
+aus dem Test-Schritt.</p>
+<p>
+Speichern Sie die Konsolenausgabe abschlie&szlig;end per Men&uuml;punkt
+<tt>Datei&nbsp;-&gt;&nbsp;Ausgabe&nbsp;speichern&nbsp;als&nbsp;...</tt>.
+W&auml;hlen Sie als Speicherort das Verzeichnis, in dem Ihr
+Programm liegt und geben Sie als Name <tt>protokoll-aufgabe1</tt> an.
+Die Endung <tt>.txt</tt> wird automatisch angeh&auml;ngt.</p>
+<p>
+Erg&auml;nzen Sie mit dem Texteditor in <tt>protokoll-aufgabe1.txt</tt>
+Ihre Antworten auf die Fragen aus dem Test-Schritt.</p>
+
+
+<h3>Abgabe</h3>
+<p>
+F&uuml;hren Sie Ihr Programm und Ihre Protokolldatei vor.</p>
+<p>
+<em>
+Hinweis:<br>
+F&uuml;hren Sie bitte ein ordentlich formatiertes Programme vor.
+Bessern Sie gegebenenfalls mit <tt>astyle</tt> nach:<br>
+<tt>astyle -p --style=ansi aufgabe1.c</tt></em></p>
+
+<h3>Freiwillige Zusatzaufgabe</h3>
+<p>
+Erstellen Sie eine Version <tt>aufgabe1-c99.c</tt> Ihres Programms,
+die in den <tt>printf</tt>-Aufrufen die bei C99 eingef&uuml;hrten
+wesentlich systematischeren Formatangabe benutzt.
+F&uuml;r <tt>sizeof</tt>-Werte gibt es hier <tt>%zu</tt>,
+f&uuml;r Ein-Byte-Zahlen <tt>%hhd</tt> und <tt>%hhu</tt>.</p>
+<p>
+Übersetzen und binden Sie Ihr Programm mit dem Aufruf:</p>
+<pre>  make "CFLAGS=-g -W -Wall -std=c99 -pedantic" aufgabe1-c99</pre>
+<p>
+F&uuml;hren Sie das Programm aus mit:</p>
+<pre>  ./aufgabe1-c99</pre>
+
+<br>
+
+<hr noshade>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><address style="font-size:smaller">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address></td>
+<td align="RIGHT" valign="TOP">
+<em style="font-size:smaller">Letzte &Auml;nderung: 27.2.2015</em>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+
